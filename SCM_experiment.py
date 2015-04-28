@@ -1,8 +1,7 @@
-#!/usr/bin/env python
+# Experiment to perform semantic correlation matching (SCM)
 
 
 # take care of some imports
-
 from scipy.io import loadmat
 import numpy as np
 from sklearn.preprocessing import StandardScaler
