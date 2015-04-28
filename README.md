@@ -3,6 +3,19 @@ Python code for the cross-modal retrieval system proposed by N. Rasiwasia, J.C. 
 ["A New Approach to Cross-Modal Multimedia Retrieval"](http://acsweb.ucsd.edu/~ecoviell/pubs/ANewApproachtoCross-ModalMultimediaRetrieval.pdf).
 
 
+Dependencies
+------------
+
+numpy
+sklean 0.16
+scipy.io (to read .mat files)
+
+Todo
+----
+
+* remove dependency on .mat format
+* refactor code to run multiple experiments (CM, SM, SCM)
+
 Citing
 ------
 
