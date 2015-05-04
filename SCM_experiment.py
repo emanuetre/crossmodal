@@ -4,11 +4,10 @@
 # take care of some imports
 from scipy.io import loadmat
 import numpy as np
-from sklearn.preprocessing import StandardScaler
-from sklearn.cross_decomposition import PLSCanonical
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import label_ranking_average_precision_score, average_precision_score
 
+from crossmodal import correlation_matching
 
 
 # read features data from .mat file
@@ -26,27 +25,9 @@ train_truth = get_truth("wikipedia_info/trainset_txt_img_cat.list")
 test_truth = get_truth("wikipedia_info/testset_txt_img_cat.list")
 
 
-# sclale image and text data
-I_scaler = StandardScaler()
-I_tr = I_scaler.fit_transform(I_tr)
-I_te = I_scaler.transform(I_te)
-
-T_scaler = StandardScaler()
-T_tr = T_scaler.fit_transform(T_tr)
-T_te = T_scaler.transform(T_te)
 
 
-# Do correlation matching (CM)
-
-COMPS=7 # using 7 components as in the ACM MM '10 paper
-
-cca = PLSCanonical(n_components=COMPS, scale=False)
-cca.fit(I_tr, T_tr)
-
-I_tr_cca, T_tr_cca = cca.transform(I_tr, T_tr)
-I_te_cca, T_te_cca = cca.transform(I_te, T_te)
-
-I_tr, T_tr, I_te, T_te = I_tr_cca, T_tr_cca, I_te_cca, T_te_cca
+I_tr, T_tr, I_te, T_te = correlation_matching(I_tr, T_tr, I_te, T_te, n_comps=7)
 
 # Do semantic matching (SM)
 
